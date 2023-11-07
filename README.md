@@ -22,4 +22,6 @@ git pull
 cd frontend
 # npm install
 npm run dev
+ctrl+C
+cd ..
 ```
