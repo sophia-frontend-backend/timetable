@@ -1,5 +1,5 @@
 ```sh
-git clone -
+git clone https://github.com/sophia-frontend-backend/timetable.git
 ```
 
 ```sh
