@@ -1,3 +1,5 @@
+# Git
+
 ```sh
 git clone https://github.com/sophia-frontend-backend/timetable.git
 ```
@@ -10,4 +12,14 @@ git push
 
 ```sh
 git pull
+```
+
+<br>
+
+# Frontend
+
+```sh
+cd frontend
+# npm install
+npm run dev
 ```
