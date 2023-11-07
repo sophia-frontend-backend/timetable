@@ -4,7 +4,7 @@ git clone -
 
 ```sh
 git add .
-git commit -m "first commit"
+git commit -m "メッセージ"
 git push
 ```
 
