@@ -16,7 +16,7 @@ git pull
 
 <br>
 
-# Frontend
+# フロントエンド
 
 ```sh
 cd frontend
