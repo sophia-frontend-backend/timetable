@@ -1,24 +1,30 @@
-// データ｜"message"の中身がどのファイルでも使える
-import { createStore } from 'vuex'
+// src/store/store.js
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-export const store = createStore({
-    state:{
-        product: []
-    },
-    mutations: {
-        addProduct(state, product) {
-            //productに"status"要素を追加した。
-            //statusの初期値は'未購入'。これを'購入済み'に変更することで購入機能を実装。
-            product.status = '未購入';
-            state.product.push(product);
-        },
-      },     
-    actions: {
-        saveProductData({ commit }, product) {
-            commit('addProduct', product);
-        }
-    },
-    getters: {
-        product: (state) => state.product,
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    classInfo: [] // データを格納する配列
+  },
+  mutations: {
+    setClassInfo(state, data) {
+      state.classInfo = data;
     }
-})
+  },
+  actions: {
+    async fetchClassInfo({ commit }) {
+      try {
+        // データベースからデータを取得する非同期操作
+        const response = await axios.get('http://localhost:5000'); // バックエンドのAPIエンドポイントを指定
+
+        // データをストアに格納
+        commit('setClassInfo', response.data);
+        console.log('データの取得が完了しました:', response.data);
+      } catch (error) {
+        console.error('データの取得に失敗しました:', error);
+      }
+    }
+  }
+});

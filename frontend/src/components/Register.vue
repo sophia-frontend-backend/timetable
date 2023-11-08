@@ -12,7 +12,7 @@
         </select>
         <br>
 
-        <label for="time">時限：</label>
+        <label for="period">時限：</label>
         <select v-model="period" id="period">
           <option value="1限">1限</option>
           <option value="2限">2限</option>
@@ -35,7 +35,7 @@
         <input v-model="room" id="room" type="text">
         <br>
   
-        <button type="submit">登録</button>
+        <button type="register">登録</button>
       </form>
     </div>
   </template>
@@ -46,8 +46,8 @@
   export default {
     data() {
       return {
-        day: '月曜日',
-        time: '',
+        date: 'null',
+        period: 'null',
         className: '',
         professor: '',
         room: ''
@@ -56,20 +56,20 @@
     methods: {
       async submitClassInfo() {
         const classInfo = {
-          day: this.day,
-          time: this.time,
+          date: this.date,
+          period: this.period,
           className: this.className,
           professor: this.professor,
           room: this.room
         };
   
         try {
-          const response = await axios.post('/api/class-info', classInfo);
-          console.log('データが送信されました:', response.data);
-          // 成功メッセージなどの処理を追加
+          const response = await axios.post('http://localhost:5000', classInfo);
+          console.log('時間割が登録できました:', response.data);
+          // postが成功した場合
         } catch (error) {
-          console.error('データ送信中にエラーが発生しました:', error);
-          // エラーメッセージなどの処理を追加
+          console.error('時間割が登録できませんでした:', error);
+          // postが失敗した場合
         }
       }
     }

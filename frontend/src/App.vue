@@ -15,19 +15,21 @@
       </ul>
     </nav>
   </header>
-  <img alt="Vue logo" src="./assets/logo.png" />
 
   <router-view></router-view>
 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    // アプリケーション起動時にデータを取得
+    this.fetchClassInfo();
+  },
+  methods: {
+    ...mapActions(['fetchClassInfo'])
   }
-}
+};
 </script>
