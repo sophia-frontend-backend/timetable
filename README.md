@@ -73,7 +73,6 @@ npm install router
 npm install vuex
 npm install axios
 ```
-
 ```sh
 npm run dev
 npm run build

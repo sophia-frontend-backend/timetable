@@ -64,7 +64,7 @@
         };
   
         try {
-          const response = await axios.post('http://localhost:5000', classInfo);
+          const response = await axios.post('http://127.0.0.1:5000', classInfo);
           console.log('時間割が登録できました:', response.data);
           // postが成功した場合
         } catch (error) {

@@ -17,7 +17,7 @@ export default new Vuex.Store({
     async fetchClassInfo({ commit }) {
       try {
         // データベースからデータを取得する非同期操作
-        const response = await axios.get('http://localhost:5000'); // バックエンドのAPIエンドポイントを指定
+        const response = await axios.get('http://127.0.0.1:5000'); // バックエンドのAPIエンドポイントを指定
 
         // データをストアに格納
         commit('setClassInfo', response.data);
