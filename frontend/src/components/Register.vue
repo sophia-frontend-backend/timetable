@@ -35,7 +35,7 @@
         <input v-model="room" id="room" type="text">
         <br>
   
-        <button type="register">登録</button>
+        <button type="submit">登録</button>
       </form>
     </div>
 </template>
