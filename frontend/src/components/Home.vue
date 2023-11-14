@@ -1,7 +1,7 @@
 <template>
     <div>
       <ul>
-        <li v-for="info in classInfo" :key="info.id">{{ info.className }}</li>
+        <li v-for="info in ClassInfo" :key="info.id">{{ info.classname }}</li>
       </ul>
     </div>
   </template>
@@ -11,7 +11,7 @@
   
   export default {
     computed: {
-      ...mapState(['classInfo'])
+      ...mapState(['ClassInfo'])
     }
   };
   </script>

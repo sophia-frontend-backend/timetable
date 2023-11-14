@@ -14,17 +14,17 @@
 
         <label for="period">時限：</label>
         <select v-model="period" id="period">
-          <option value="1限">1限</option>
-          <option value="2限">2限</option>
-          <option value="3限">3限</option>
-          <option value="4限">4限</option>
-          <option value="5限">5限</option>
-          <option value="6限">6限</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
         </select>
         <br>
   
-        <label for="className">授業名：</label>
-        <input v-model="className" id="className" type="text">
+        <label for="classname">授業名：</label>
+        <input v-model="classname" id="classname" type="text">
         <br>
   
         <label for="professor">教授名：</label>
@@ -55,15 +55,15 @@ export default {
   },
   methods: {
     submitClassInfo() {
-      const classInfo = {
+      const ClassInfo = {
         date: this.date,
         period: this.period,
-        className: this.className,
+        classname: this.classname,
         professor: this.professor,
         room: this.room
       };
 
-      axios.post('http://127.0.0.1:5000', classInfo)
+      axios.post('http://127.0.0.1:5000', ClassInfo)
         .then(response => {
           console.log('時間割が登録できました:', response.data);
           // postが成功した場合の処理

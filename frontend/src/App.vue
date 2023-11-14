@@ -27,6 +27,7 @@ export default {
   created() {
     // アプリケーション起動時にデータを取得
     this.fetchClassInfo();
+    console.log('fetchClassInfo called');
   },
   methods: {
     ...mapActions(['fetchClassInfo'])
