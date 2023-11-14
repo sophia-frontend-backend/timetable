@@ -35,43 +35,44 @@
         <input v-model="room" id="room" type="text">
         <br>
   
-        <button type="register">登録</button>
+        <button type="submit">登録</button>
       </form>
     </div>
-  </template>
+</template>
   
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        date: 'null',
-        period: 'null',
-        className: '',
-        professor: '',
-        room: ''
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      date: 'null',
+      period: 'null',
+      className: '',
+      professor: '',
+      room: ''
+    };
+  },
+  methods: {
+    submitClassInfo() {
+      const classInfo = {
+        date: this.date,
+        period: this.period,
+        className: this.className,
+        professor: this.professor,
+        room: this.room
       };
-    },
-    methods: {
-      async submitClassInfo() {
-        const classInfo = {
-          date: this.date,
-          period: this.period,
-          className: this.className,
-          professor: this.professor,
-          room: this.room
-        };
-  
-        try {
-          const response = await axios.post('http://localhost:5000', classInfo);
+
+      axios.post('http://127.0.0.1:5000', classInfo)
+        .then(response => {
           console.log('時間割が登録できました:', response.data);
-          // postが成功した場合
-        } catch (error) {
+          // postが成功した場合の処理
+        })
+        .catch(error => {
           console.error('時間割が登録できませんでした:', error);
-          // postが失敗した場合
-        }
-      }
+          // postが失敗した場合の処理
+        });
     }
-  };
-  </script>
+  }
+};
+</script>
