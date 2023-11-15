@@ -1,10 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+// store.js
+import { createStore } from 'vuex';
 import axios from 'axios';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+const store = createStore({
   state: {
     ClassInfo: [] // データを格納
   },
@@ -14,7 +12,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async fetchClassInfo({ commit }) {
+    async fetchDataFromBackend({ commit }) {
       try {
         const response = await axios.get('http://127.0.0.1:5000');
         commit('setClassInfo', response.data);
@@ -25,3 +23,5 @@ export default new Vuex.Store({
     }
   }
 });
+
+export default store;
