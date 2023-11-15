@@ -1,5 +1,3 @@
-// ルータ｜各vueファイルインポート・パス記載
-
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './components/Home.vue'
 import Register from './components/Register.vue'

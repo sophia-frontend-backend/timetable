@@ -48,7 +48,7 @@ export default {
     return {
       date: 'null',
       period: 'null',
-      className: '',
+      classname: '',
       professor: '',
       room: ''
     };

@@ -6,11 +6,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    classInfo: [] // データを格納する配列
+    ClassInfo: [] // データを格納
   },
   mutations: {
     setClassInfo(state, data) {
-      state.classInfo = data;
+      state.ClassInfo = data;
     }
   },
   actions: {
