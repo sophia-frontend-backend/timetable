@@ -8,8 +8,8 @@ PERIOD = 2
 TIMETABLE_URL = os.path.join(URL, f'timetable/{DATE}/{PERIOD}')
 
 TIMETABLES = [
-    {'date': "fryday", 'period': 2, 'classname': "情報リテラシー", 'professor': "川端教授", 'room': '6-201'},
-    {'date': "tuesday", 'period': 5, 'classname': "生と死", 'professor': "山下教授", 'room': '12-401'},
+    {'date': "金曜日", 'period': 2, 'classname': "情報リテラシー", 'professor': "川端教授", 'room': '6-201'},
+    {'date': "火曜日", 'period': 5, 'classname': "生と死", 'professor': "山下教授", 'room': '12-401'},
 ]
 POST_DATA = {
     'date': '木曜日',
