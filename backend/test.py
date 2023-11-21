@@ -3,7 +3,7 @@ import json
 import os
 
 URL = "http://127.0.0.1:5000"
-DATE = "金曜日"
+DATE = "fryday"
 PERIOD = 2
 TIMETABLE_URL = os.path.join(URL, f'timetable/{DATE}/{PERIOD}')
 

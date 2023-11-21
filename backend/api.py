@@ -74,7 +74,7 @@ class AllTimetables(Resource):
 class TimetableApi(Resource):
     def get(self, date,period):
         try:
-            timetable = db.session.query(Timetable).get(date, period)
+            timetable = db.session.query(Timetable).filter_by(date=date, period=period).first()
             response = {
                 "status": "GOT",
                 'date': timetable.date,
