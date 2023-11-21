@@ -3,7 +3,7 @@ import json
 import os
 
 URL = "http://127.0.0.1:5000"
-DATE = "fryday"
+DATE = "金曜日"
 PERIOD = 2
 TIMETABLE_URL = os.path.join(URL, f'timetable/{DATE}/{PERIOD}')
 
@@ -31,12 +31,12 @@ def make_sample_timetables():
     # DELETE USERS
     response = requests.delete(URL)
     print(f"\nDELETE url: {response.url}")
-    print(f"DELETE content: {json.loads(response.json())}")
+    print(f"DELETE content: {response.json()}")
 
     # GET USERS
     response = requests.get(URL)
     print(f"\nstatus code: {response.status_code}")
-    print(f"content: {json.loads(response.json())}\n")
+    print(f"content: {response.json()}\n")
     # --------------------------------------------------------
 
     # CREATE USERS
@@ -45,12 +45,12 @@ def make_sample_timetables():
     for timetable in TIMETABLES:
         response = requests.post(URL, data=json.dumps(timetable))
         print(f"status code: {response.status_code}")
-        print(f"content: {json.loads(response.json())}")
+        print(f"content: {response.json()}")
 
     # GET USERS
     response = requests.get(URL)
     print(f"\nGET url: {response.url}")
-    print(f"GET content: {json.loads(response.json())}")
+    print(f"GET content: {response.json()}")
     # --------------------------------------------------------
 
 def make_timetable():
@@ -62,17 +62,17 @@ def make_timetable():
     response = requests.post(URL, data=json.dumps(POST_DATA))
     print(f"\nPOST url: {response.url}")
     print(f"POST DATA: {POST_DATA}")
-    print(f"POST content: {json.loads(response.json())}")
+    print(f"POST content: {response.json()}")
 
     # GET A USER 
     response = requests.get(TIMETABLE_URL)
     print(f"\nGET url: {response.url}")
-    print(f"content: {json.loads(response.json())}")
+    print(f"content: {response.json()}")
 
     # GET USERS
     response = requests.get(URL)
     print(f"\nstatus code: {response.status_code}")
-    print(f"content: {json.loads(response.json())}\n")
+    print(f"content: {response.json()}\n")
     # --------------------------------------------------------
 
     # CHANGE A USER
@@ -86,7 +86,7 @@ def make_timetable():
     # GET USERS
     response = requests.get(URL)
     print(f"\nstatus code: {response.status_code}")
-    print(f"content: {json.loads(response.json())}\n")
+    print(f"content: {response.json()}\n")
     # --------------------------------------------------------
 
     # DELETE A USER DATA
@@ -94,12 +94,12 @@ def make_timetable():
     # DELETE ID
     response = requests.delete(TIMETABLE_URL)
     print(f"\nDELETE url: {response.url}")
-    print(f"content: {json.loads(response.json())}")
+    print(f"content: {response.json()}")
 
     # GET USERS
     response = requests.get(URL)
     print(f"\nstatus code: {response.status_code}")
-    print(f"content: {json.loads(response.json())}\n")
+    print(f"content: {response.json()}\n")
     # CHANGE A USER DATA 
     # --------------------------------------------------------
 
