@@ -2,27 +2,12 @@
   <div>
     <h2>授業情報入力フォーム</h2>
     <form @submit.prevent="submitClassInfo">
-      <label for="date">曜日：</label>
-      <select v-model="date" id="date">
-        <option value="月曜日">月曜日</option>
-        <option value="火曜日">火曜日</option>
-        <option value="水曜日">水曜日</option>
-        <option value="木曜日">木曜日</option>
-        <option value="金曜日">金曜日</option>
-      </select>
+      <p>曜日：{{ date }}</p>
       <br>
 
-      <label for="period">時限：</label>
-      <select v-model="period" id="period">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
+      <p>時限：{{ period }}</p>
       <br>
-
+  
       <label for="classname">授業名：</label>
       <input v-model="classname" id="classname" type="text" required>
       <br>
@@ -36,6 +21,8 @@
       <br>
 
       <button type="submit">登録</button>
+      <button type="button" @click="deleteClassInfo">削除</button>
+      <router-link to="/"><button>ホーム</button></router-link>
     </form>
   </div>
 </template>
@@ -50,16 +37,43 @@ export default {
       period: null,
       classname: '',
       professor: '',
-      room: ''
+      room: '',
+      disabled: true, // dateとperiodの選択を無効にする
     };
   },
+  created() {
+    // URL パラメータから date と period を取得
+    this.date = this.$route.query.date;
+    this.period = this.$route.query.period;
+    this.fetchDataFromBackend(); // 既存データを取得
+  },
+  watch: {
+    // dateとperiodが変更されたらdisabledを解除
+    date() {
+      this.disabled = false;
+    },
+    period() {
+      this.disabled = false;
+    },
+  },
   methods: {
-    submitClassInfo() {
-      // 全てのフォームが入力されていない場合エラーを表示
-      if (!this.date || !this.period || !this.classname || !this.professor || !this.room) {
-        console.error('全てのフォームに入力してください');
-        return;
+    async fetchDataFromBackend() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`);
+        const existingData = response.data;
+
+        // 既存データがある場合はフォームにセット
+        if (existingData) {
+          this.classname = existingData.classname;
+          this.professor = existingData.professor;
+          this.room = existingData.room;
+        }
+      } catch (error) {
+        console.error('データの取得に失敗しました:', error);
       }
+    },
+    submitClassInfo() {
+      // フォームのバリデーションは省略
 
       const ClassInfo = {
         date: this.date,
@@ -69,21 +83,46 @@ export default {
         room: this.room
       };
 
-      axios.post('http://127.0.0.1:5000', ClassInfo)
+      axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, ClassInfo)
         .then(response => {
-          console.log('時間割が登録できました:', response.data);
-          // postが成功した場合の処理
+          console.log('時間割が更新できました:', response.data);
 
           // フォームをクリア
-          this.date = null;
-          this.period = null;
           this.classname = '';
           this.professor = '';
           this.room = '';
+          this.disabled = true; // dateとperiodの選択を再び無効にする
+
+          // ホームに戻る
+          this.$router.push('/');
+
+          // データを再取得
+          this.fetchDataFromBackend();
         })
         .catch(error => {
-          console.error('時間割が登録できませんでした:', error);
-          // postが失敗した場合の処理
+          console.error('時間割が更新できませんでした:', error);
+          // putが失敗した場合の処理
+        });
+    },
+    deleteClassInfo() {
+      // フォームのバリデーションは省略
+
+      axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, {
+        classname: '',
+        professor: '',
+        room: ''
+      })
+        .then(response => {
+          console.log('時間割が削除されました:', response.data);
+
+          // 削除後の処理を追加（例えば、画面をリロードするなど）
+
+          // データを再取得
+          this.fetchDataFromBackend();
+        })
+        .catch(error => {
+          console.error('時間割が削除できませんでした:', error);
+          // putが失敗した場合の処理
         });
     }
   }

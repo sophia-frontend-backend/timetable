@@ -29,7 +29,7 @@ class AllTimetables(Resource):
                 "error": str(e)
                 }
 
-        return json.dumps(response)
+        return response
     
     def post(self):
         try:
@@ -53,7 +53,7 @@ class AllTimetables(Resource):
                 "Error": str(e)
                 }
             
-        return json.dumps(response)
+        return response
 
     def delete(self):
         try:
@@ -69,7 +69,7 @@ class AllTimetables(Resource):
                 "Error": str(e)
                 }
             
-        return json.dumps(response)
+        return response
     
 class TimetableApi(Resource):
     def get(self, date,period):
@@ -90,7 +90,7 @@ class TimetableApi(Resource):
                 "Error": str(e)
                 }
 
-        return json.dumps(response)
+        return response
     
     def put(self, date, period):
         try:
@@ -133,7 +133,7 @@ class TimetableApi(Resource):
                 "Error": str(e)
                 }
 
-        return json.dumps(response)
+        return response
 
 if __name__ == '__main__':
     api = Api(app)

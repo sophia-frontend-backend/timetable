@@ -12,11 +12,6 @@
             時間割登録
           </router-link>
         </li>
-        <li class="item">
-          <router-link to="/change">
-            時間割変更
-          </router-link>
-        </li>
       </ul>
     </nav>
   </header>
