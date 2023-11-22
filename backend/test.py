@@ -22,7 +22,7 @@ POST_DATA = {
 PUT_DATA = {
     'classname': 'sampleClass',
     }
-
+print(TIMETABLES)
 def make_sample_timetables():
     print("\nmake_sample_timetables")
 
