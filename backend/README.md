@@ -16,3 +16,9 @@ cd ./backend
 source venv/bin/activate
 python3 test.py
 ```
+
+curl コマンド
+POST   : curl -X POST -H "Content-Type: application/json" -d '{＃json型で内容}' http://localhost:5000/
+PUT    : curl -X PUT -H "Content-Type: application/json" -d '{＃json型で内容}' http://localhost:5000/#DATE/#PERIOD
+GET    : curl http://localhost:5000/
+DELETE : curl -X DELETE http://localhost:5000/
