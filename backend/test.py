@@ -3,8 +3,8 @@ import json
 import os
 
 URL = "http://127.0.0.1:5000"
-DATE = "金曜日"
-PERIOD = 2
+DATE = "月曜日"
+PERIOD =1
 TIMETABLE_URL = os.path.join(URL, f'timetable/{DATE}/{PERIOD}')
 
 TIMETABLES = [
@@ -12,8 +12,8 @@ TIMETABLES = [
     {'date': "火曜日", 'period': 5, 'classname': "生と死", 'professor': "山下教授", 'room': '12-401'},
 ]
 POST_DATA = {
-    'date': '木曜日',
-    'period': 4,
+    'date': '月曜日',
+    'period': 1,
     'classname': 'キリスト教',
     'professor': '宮本教授',
     'room': '2-501'

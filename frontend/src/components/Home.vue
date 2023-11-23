@@ -1,9 +1,20 @@
 <template>
   <div>
+    <ul>
+      <li v-for="info in ClassInfo.timetabels" :key="info.date+info.period" @click="showEditForm(info.date, info.period)">
+        {{ info.date }} / {{ info.period }}限 / {{ info.classname }} / {{ info.professor }} / {{ info.room }}
+      </li>
+    </ul>
+  </div>
+  {{ ClassInfo }}
+  {{ ClassInfo.timetabels.map(info => info.date) }}
+</template>
+<!-- <template>
+  <div>
     <table>
       <thead>
         <tr>
-          <th></th> <!-- 空のセル -->
+          <th></th> 
           <th v-for="dateLabel in weekDays" :key="dateLabel">{{ dateLabel }}</th>
         </tr>
       </thead>
@@ -17,7 +28,7 @@
       </tbody>
     </table>
   </div>
-</template>
+</template> -->
 
 <script>
 import { mapState, mapActions } from 'vuex';

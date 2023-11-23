@@ -61,6 +61,7 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`);
         const existingData = response.data;
+        
 
         // 既存データがある場合はフォームにセット
         if (existingData) {
@@ -83,26 +84,30 @@ export default {
         room: this.room
       };
 
-      axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, ClassInfo)
-        .then(response => {
-          console.log('時間割が更新できました:', response.data);
+    axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, ClassInfo)
+      .then(async response => {
+        console.log('PUTされたデータ:', ClassInfo);
+        console.log('時間割が更新できました:', response.data);
 
-          // フォームをクリア
-          this.classname = '';
-          this.professor = '';
-          this.room = '';
-          this.disabled = true; // dateとperiodの選択を再び無効にする
+        // フォームをクリア
+        this.classname = '';
+        this.professor = '';
+        this.room = '';
+        this.disabled = true; // dateとperiodの選択を再び無効にする
 
-          // ホームに戻る
-          this.$router.push('/');
+        // データを再取得
+        await this.fetchDataFromBackend();
 
-          // データを再取得
-          this.fetchDataFromBackend();
-        })
-        .catch(error => {
-          console.error('時間割が更新できませんでした:', error);
-          // putが失敗した場合の処理
-        });
+        // コンソールにデータを表示
+        console.log('更新後のデータ:', this.ClassInfo);
+
+        // ホームに戻る
+        this.$router.push('/');
+      })
+      .catch(error => {
+        console.error('時間割が更新できませんでした:', error);
+        // putが失敗した場合の処理
+      });
     },
     deleteClassInfo() {
       // フォームのバリデーションは省略
@@ -119,6 +124,8 @@ export default {
 
           // データを再取得
           this.fetchDataFromBackend();
+
+          this.$router.push('/');
         })
         .catch(error => {
           console.error('時間割が削除できませんでした:', error);
