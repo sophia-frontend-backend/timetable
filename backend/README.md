@@ -23,4 +23,5 @@ POST   : curl -X POST -H "Content-Type: application/json" -d '{＃json型で内�
 PUT    : curl -X PUT -H "Content-Type: application/json" -d '{＃json型で内容}' http://localhost:5000/#DATE/#PERIOD
 GET    : curl http://localhost:5000/
 DELETE : curl -X DELETE http://localhost:5000/
+curl -X POST -H "Content-Type: application/json" -d '{"date": "月曜日", "period": "3", "classname": "", "professor": "", "room": "2"}' http://localhost:5000/
 ```
