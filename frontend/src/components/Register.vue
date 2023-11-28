@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -38,17 +38,15 @@ export default {
       classname: '',
       professor: '',
       room: '',
-      disabled: true, // dateとperiodの選択を無効にする
+      disabled: true,
     };
   },
   created() {
-    // URL パラメータから date と period を取得
     this.date = this.$route.query.date;
     this.period = this.$route.query.period;
-    this.fetchDataFromBackend(); // 既存データを取得
+    this.fetchDataFromBackend();
   },
   watch: {
-    // dateとperiodが変更されたらdisabledを解除
     date() {
       this.disabled = false;
     },
@@ -57,81 +55,50 @@ export default {
     },
   },
   methods: {
-    async fetchDataFromBackend() {
+    ...mapActions(['fetchDataFromBackend', 'changeTable', 'deleteTable','updateCellContents']),
+
+    async submitClassInfo() {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`);
-        const existingData = response.data;
-        
+        const updatedData = {
+          date: this.date,
+          period: this.period,
+          classname: this.classname,
+          professor: this.professor,
+          room: this.room
+        };
 
-        // 既存データがある場合はフォームにセット
-        if (existingData) {
-          this.classname = existingData.classname;
-          this.professor = existingData.professor;
-          this.room = existingData.room;
-        }
-      } catch (error) {
-        console.error('データの取得に失敗しました:', error);
-      }
-    },
-    submitClassInfo() {
-      // フォームのバリデーションは省略
+        await this.changeTable(updatedData);
 
-      const ClassInfo = {
-        date: this.date,
-        period: this.period,
-        classname: this.classname,
-        professor: this.professor,
-        room: this.room
-      };
-
-    axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, ClassInfo)
-      .then(async response => {
-        console.log('PUTされたデータ:', ClassInfo);
-        console.log('時間割が更新できました:', response.data);
 
         // フォームをクリア
         this.classname = '';
         this.professor = '';
         this.room = '';
-        this.disabled = true; // dateとperiodの選択を再び無効にする
+        this.disabled = true;
 
         // データを再取得
         await this.fetchDataFromBackend();
+        
+        // ホームに戻る
+        this.$router.push('/');
+      } catch (error) {
+        console.error('データの更新に失敗しました:', error);
+      }
+    },
 
-        // コンソールにデータを表示
-        console.log('更新後のデータ:', this.ClassInfo);
+    async deleteClassInfo() {
+      try {
+        await this.deleteTable({ date: this.date, period: this.period });
+
+        // データが変更されたので、再度データを取得
+        await this.fetchDataFromBackend();
 
         // ホームに戻る
         this.$router.push('/');
-      })
-      .catch(error => {
-        console.error('時間割が更新できませんでした:', error);
-        // putが失敗した場合の処理
-      });
-    },
-    deleteClassInfo() {
-      // フォームのバリデーションは省略
-
-      axios.put(`http://127.0.0.1:5000/timetable/${this.date}/${this.period}`, {
-        classname: '',
-        professor: '',
-        room: ''
-      })
-        .then(response => {
-          console.log('時間割が削除されました:', response.data);
-
-          // 削除後の処理を追加（例えば、画面をリロードするなど）
-
-          // データを再取得
-          this.fetchDataFromBackend();
-
-          this.$router.push('/');
-        })
-        .catch(error => {
-          console.error('時間割が削除できませんでした:', error);
-          // putが失敗した場合の処理
-        });
+      } catch (error) {
+        console.error('データの削除に失敗しました:', error);
+      }
     }
   }
-};
+}
 </script>

@@ -1,20 +1,9 @@
 <template>
   <div>
-    <ul>
-      <li v-for="info in ClassInfo.timetabels" :key="info.date+info.period" @click="showEditForm(info.date, info.period)">
-        {{ info.date }} / {{ info.period }}限 / {{ info.classname }} / {{ info.professor }} / {{ info.room }}
-      </li>
-    </ul>
-  </div>
-  {{ ClassInfo }}
-  {{ ClassInfo.timetabels.map(info => info.date) }}
-</template>
-<!-- <template>
-  <div>
     <table>
       <thead>
         <tr>
-          <th></th> 
+          <th></th>
           <th v-for="dateLabel in weekDays" :key="dateLabel">{{ dateLabel }}</th>
         </tr>
       </thead>
@@ -27,25 +16,20 @@
         </tr>
       </tbody>
     </table>
+    <button @click="deleteAllTable">全てのデータを削除</button>
   </div>
-</template> -->
+  {{ ClassInfo }}
+</template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Delete from './Delete.vue';
-import ChangeButton from './ChangeButton.vue';
-import ChangeForm from './ChangeForm.vue';
 import axios from 'axios';
 
 export default {
-  components: {
-    Delete,
-    ChangeButton,
-    ChangeForm,
-  },
   data() {
     return {
       showForm: false,
+      cellContents: {}, // 各セルの内容を保持するオブジェクト
     };
   },
   computed: {
@@ -61,54 +45,67 @@ export default {
     this.fetchDataFromBackend(); // データをバックエンドから取得
   },
   methods: {
-    ...mapActions(['fetchDataFromBackend']),
-    async deleteClassInfo(date, period) {
-      try {
-        // バックエンドのAPIを呼び出してデータを削除
-        const response = await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`,
-        {
-          classname: '',
-          professor: '',
-          room: ''
-        })
-        console.log('データが削除されました:', response);
-        
-        // データが削除されたので、表示上も更新
-        this.fetchDataFromBackend();
-      } catch (error) {
-        console.error('データの削除に失敗しました:', error);
-      }
-    },
-    getTableCellContent(dateLabel, period) {
-      // this.ClassInfo.timetabels が存在しているか確認
-      if (this.ClassInfo && this.ClassInfo.timetabels) {
-        const matchingInfo = this.ClassInfo.timetabels.find(
-          info => info.date === dateLabel && info.period === period
-        );
-        return matchingInfo ? `${matchingInfo.classname} / ${matchingInfo.professor} / ${matchingInfo.room}` : '';
-      } else {
-        console.error('timetabels プロパティが存在しません');
-        return ''; // エラーが発生した場合、空の文字列を返すなどの適切な処理を行う
-      }
+    ...mapActions(['fetchDataFromBackend','deleteAllTable']),
+    async fetchDataFromBackend() {
+      // try {
+      //   const response = await axios.get('http://127.0.0.1:5000/');
+      //   this.ClassInfo = response.data; // ClassInfoを更新
+      //   this.updateCellContents(); // セルの内容を更新
+
+      //   // $nextTickを使用してDOMの更新を待つ
+      //   this.$nextTick(() => {
+      //     console.log('ClassInfo:', this.ClassInfo);
+      //     console.log('cellContents:', this.cellContents);
+      //   });
+      // } catch (error) {
+      //   console.error('データの取得に失敗しました:', error);
+      // }
     },
 
+
+    // async deleteAllTable() {
+    //   // try {
+    //   //   // 表のセルをfor文で回して、各セルに対してPUTリクエストを行う
+    //   //   for (const dateLabel of this.weekDays) {
+    //   //     for (const period of this.periods) {
+    //   //       axios.put(`http://127.0.0.1:5000/timetable/${dateLabel}/${period}`, {
+    //   //         classname: '',
+    //   //         professor: '',
+    //   //         room: ''
+    //   //       })
+    //   //     }
+    //   //   }
+    //     // データが更新されたので、表示上も更新
+    //   //   await this.fetchDataFromBackend();
+
+    //   // } catch (error) {
+    //   //   console.error('データの更新に失敗しました:', error);
+    //   // }
+    // },
+
+    getTableCellContent(dateLabel, period) {
+      return this.cellContents[`${dateLabel}-${period}`] || '';
+    },
+    updateCellContents() {
+      // ClassInfoからセルの内容を更新
+      if (this.ClassInfo && this.ClassInfo.timetabels) {
+        this.cellContents = {};
+        this.ClassInfo.timetabels.forEach((info) => {
+          this.cellContents[`${info.date}-${info.period}`] = `${info.classname} / ${info.professor} / ${info.room}`;
+        });
+      }
+    },
     async updateClassInfo(updatedData) {
       // バックエンドのAPIを呼び出してデータを更新
       try {
-        this.$route.push("/register")
-        console.log("Hello")
-        // const response = await axios.put(`http://127.0.0.1:5000/timetable/${updatedData.timetabels.date}/${updatedData.timetabels.period}`, updatedData);
-        // console.log('データが更新されました:', response.data);
-
-        // // データが更新されたので、表示上も更新
-        // this.fetchDataFromBackend();
-        // this.showForm = false; // フォームを非表示にする
+        this.$route.push('/register');
+        
       } catch (error) {
         console.error('データの更新に失敗しました:', error);
       }
     },
     showEditForm(date, period) {
-      this.$router.push({path: "/register", query: {"date": date, "period": period}})
+      this.$router.push({ path: '/register', query: { date: date, period: period } });
       this.showForm = true; // フォームを表示する
     },
   },
@@ -117,6 +114,7 @@ export default {
     ClassInfo: {
       handler(newValue) {
         console.log('ClassInfo updated:', newValue);
+        this.updateCellContents(); // セルの内容を更新
       },
       deep: true,
     },
