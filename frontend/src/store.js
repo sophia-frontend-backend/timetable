@@ -34,10 +34,14 @@ const store = createStore({
     },
     async changeTable({ dispatch }, updatedData) {
       try {
+
         const { date, period } = updatedData;
-    
         // PUTリクエストをバックエンドに送信
-        await axios.put(`http://127.0.0.1:5000/${date}/${period}`, updatedData);
+        await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`, updatedData,{
+          headers: {
+              'Content-Type': 'application/json',  // 適切なContent-Typeを指定する
+          }
+      });
     
         // データが変更されたので、再度データを取得
         await dispatch('fetchDataFromBackend');
@@ -49,7 +53,7 @@ const store = createStore({
     async deleteTable({ dispatch }, { date, period }) {
       try {
         // PUTリクエストをバックエンドに送信
-        await axios.put(`http://127.0.0.1:5000/${date}/${period}`, {
+        await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`, {
           classname: '',
           professor: '',
           room: ''

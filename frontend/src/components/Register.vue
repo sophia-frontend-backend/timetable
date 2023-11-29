@@ -1,28 +1,27 @@
 <template>
-  <div>
-    <h2>授業情報入力フォーム</h2>
+  <div class="container mt-5">
+    <h2 class="mb-4">授業情報入力フォーム</h2>
     <form @submit.prevent="submitClassInfo">
-      <p>曜日：{{ date }}</p>
-      <br>
+      <div class="mb-3">
+        <label for="classname" class="form-label">授業名：</label>
+        <input v-model="classname" id="classname" type="text" class="form-control" required>
+      </div>
 
-      <p>時限：{{ period }}</p>
-      <br>
-  
-      <label for="classname">授業名：</label>
-      <input v-model="classname" id="classname" type="text" required>
-      <br>
+      <div class="mb-3">
+        <label for="professor" class="form-label">教授名：</label>
+        <input v-model="professor" id="professor" type="text" class="form-control">
+      </div>
 
-      <label for="professor">教授名：</label>
-      <input v-model="professor" id="professor" type="text" required>
-      <br>
+      <div class="mb-3">
+        <label for="room" class="form-label">教室：</label>
+        <input v-model="room" id="room" type="text" class="form-control">
+      </div>
 
-      <label for="room">教室：</label>
-      <input v-model="room" id="room" type="text" required>
-      <br>
-
-      <button type="submit">登録</button>
-      <button type="button" @click="deleteClassInfo">削除</button>
-      <router-link to="/"><button>ホーム</button></router-link>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">登録</button>
+        <button type="button" @click="deleteClassInfo" class="btn btn-danger mx-3">削除</button>
+        <router-link to="/" class="btn btn-secondary">ホーム</router-link>
+      </div>
     </form>
   </div>
 </template>

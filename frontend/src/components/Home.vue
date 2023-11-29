@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table class="table table-sm table-bordered">
       <thead>
         <tr>
           <th></th>
@@ -8,17 +8,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="period in periods" :key="period">
+        <tr v-for="period in periods" :key="period"  style="height: 100px;">
           <td>{{ period }}限</td>
+
           <td v-for="dateLabel in weekDays" :key="dateLabel" @click="showEditForm(dateLabel, period)">
-            {{ getTableCellContent(dateLabel, period) }}
+            <template v-if="getClassname(dateLabel, period)">
+              <div v-if="getClassname(dateLabel, period).classname">
+                {{ `授業: ${getClassname(dateLabel, period).classname}` }}
+              </div>
+              <div v-if="getClassname(dateLabel, period).room">
+                {{ `教室: ${getClassname(dateLabel, period).room}` }}
+              </div>
+              <div v-if="getClassname(dateLabel, period).professor">
+                {{ `教授: ${getClassname(dateLabel, period).professor}` }}
+              </div>
+            </template>
+
           </td>
         </tr>
       </tbody>
     </table>
-    <button @click="deleteAllTable">全てのデータを削除</button>
+    <button class="btn btn-danger m-3" @click="deleteAllTable">全てのデータを削除</button>
   </div>
-  {{ ClassInfo }}
+  <!-- {{ ClassInfo }} -->
 </template>
 
 <script>
@@ -82,6 +94,18 @@ export default {
     //   //   console.error('データの更新に失敗しました:', error);
     //   // }
     // },
+    // 勝手に追加したから消して自分で作り直して良いよ -----------------------------
+    getClassname(date, period) {      
+      if (this.ClassInfo.timetabels && this.ClassInfo.timetabels.length > 0) {
+        const targetClass = this.ClassInfo.timetabels.find(
+            item => item.date === date && parseInt(item.period) === parseInt(period)
+          );
+        return targetClass
+      } else {
+        return null;
+      }
+    },
+    // --------------------------------------------
 
     getTableCellContent(dateLabel, period) {
       return this.cellContents[`${dateLabel}-${period}`] || '';
