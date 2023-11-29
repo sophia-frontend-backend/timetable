@@ -58,42 +58,8 @@ export default {
   },
   methods: {
     ...mapActions(['fetchDataFromBackend','deleteAllTable']),
-    async fetchDataFromBackend() {
-      // try {
-      //   const response = await axios.get('http://127.0.0.1:5000/');
-      //   this.ClassInfo = response.data; // ClassInfoを更新
-      //   this.updateCellContents(); // セルの内容を更新
+    async fetchDataFromBackend() {},
 
-      //   // $nextTickを使用してDOMの更新を待つ
-      //   this.$nextTick(() => {
-      //     console.log('ClassInfo:', this.ClassInfo);
-      //     console.log('cellContents:', this.cellContents);
-      //   });
-      // } catch (error) {
-      //   console.error('データの取得に失敗しました:', error);
-      // }
-    },
-
-
-    // async deleteAllTable() {
-    //   // try {
-    //   //   // 表のセルをfor文で回して、各セルに対してPUTリクエストを行う
-    //   //   for (const dateLabel of this.weekDays) {
-    //   //     for (const period of this.periods) {
-    //   //       axios.put(`http://127.0.0.1:5000/timetable/${dateLabel}/${period}`, {
-    //   //         classname: '',
-    //   //         professor: '',
-    //   //         room: ''
-    //   //       })
-    //   //     }
-    //   //   }
-    //     // データが更新されたので、表示上も更新
-    //   //   await this.fetchDataFromBackend();
-
-    //   // } catch (error) {
-    //   //   console.error('データの更新に失敗しました:', error);
-    //   // }
-    // },
     // 勝手に追加したから消して自分で作り直して良いよ -----------------------------
     getClassname(date, period) {      
       if (this.ClassInfo.timetabels && this.ClassInfo.timetabels.length > 0) {
@@ -128,8 +94,12 @@ export default {
         console.error('データの更新に失敗しました:', error);
       }
     },
+    // クリックしたセルの既存情報を/ergisterに渡す
     showEditForm(date, period) {
-      this.$router.push({ path: '/register', query: { date: date, period: period } });
+      const clickedClassInfo = this.getClassname(date, period);
+      const queryParams = { date, period, ...clickedClassInfo };
+      
+      this.$router.push({ path: '/register', query: queryParams });
       this.showForm = true; // フォームを表示する
     },
   },

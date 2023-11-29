@@ -1,4 +1,4 @@
-# Git
+<!-- # Git
 
 ```sh
 git clone https://github.com/sophia-frontend-backend/timetable.git
@@ -12,11 +12,9 @@ git push
 
 ```sh
 git pull
-```
+``` -->
 
-<br>
-
-# frontend
+<!-- # frontend
 
 ```sh
 cd frontend
@@ -24,7 +22,7 @@ cd frontend
 npm run dev
 ctrl+C
 cd ..
-```
+``` -->
 # 1 Gitのセッティング
 
 ## 1.1 初めてセッティングする場合

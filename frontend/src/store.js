@@ -34,7 +34,6 @@ const store = createStore({
     },
     async changeTable({ dispatch }, updatedData) {
       try {
-
         const { date, period } = updatedData;
         // PUTリクエストをバックエンドに送信
         await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`, updatedData,{

@@ -34,9 +34,9 @@ export default {
     return {
       date: null,
       period: null,
-      classname: '',
-      professor: '',
-      room: '',
+      classname: this.$route.query.classname || '',
+      professor: this.$route.query.professor || '',
+      room: this.$route.query.room || '',
       disabled: true,
     };
   },
@@ -67,7 +67,6 @@ export default {
         };
 
         await this.changeTable(updatedData);
-
 
         // フォームをクリア
         this.classname = '';
