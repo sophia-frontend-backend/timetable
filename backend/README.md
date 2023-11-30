@@ -1,3 +1,5 @@
+<br>
+
 # バックエンドの起動
 
 ## 仮想環境
@@ -13,6 +15,7 @@ pip3 install -r requirements.txt
 python3 api.py
 ```
 
+<<<<<<< HEAD
 ### Windows
 
 ```sh
@@ -34,6 +37,8 @@ source venv/bin/activate
 python3 create.py
 ```
 
+=======
+>>>>>>> dd50de889ae9816de187ffc8f836772ebb79bd86
 ## Docker環境が利用可能な場合
 
 ```sh
