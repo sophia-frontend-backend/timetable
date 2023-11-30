@@ -14,7 +14,7 @@ const store = createStore({
   actions: {
     async fetchDataFromBackend({ commit }) {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/');
+        const response = await axios.get('http://127.0.0.1:8080/');
         commit('setClassInfo', response.data);
         console.log('データの取得が完了しました:', response.data);
       } catch (error) {
@@ -36,7 +36,7 @@ const store = createStore({
       try {
         const { date, period } = updatedData;
         // PUTリクエストをバックエンドに送信
-        await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`, updatedData,{
+        await axios.put(`http://127.0.0.1:8080/timetable/${date}/${period}`, updatedData,{
           headers: {
               'Content-Type': 'application/json',  // 適切なContent-Typeを指定する
           }
@@ -52,7 +52,7 @@ const store = createStore({
     async deleteTable({ dispatch }, { date, period }) {
       try {
         // PUTリクエストをバックエンドに送信
-        await axios.put(`http://127.0.0.1:5000/timetable/${date}/${period}`, {
+        await axios.put(`http://127.0.0.1:8080/timetable/${date}/${period}`, {
           classname: '',
           professor: '',
           room: ''
@@ -71,7 +71,7 @@ const store = createStore({
         // 表のセルをfor文で回して、各セルに対してPUTリクエストを行う
         for (const dateLabel of weekDays) {
           for (const period of periods) {
-            await axios.put(`http://127.0.0.1:5000/timetable/${dateLabel}/${period}`, {
+            await axios.put(`http://127.0.0.1:8080/timetable/${dateLabel}/${period}`, {
               classname: '',
               professor: '',
               room: ''
