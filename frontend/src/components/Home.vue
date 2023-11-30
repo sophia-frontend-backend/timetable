@@ -1,36 +1,54 @@
 <template>
   <div>
-    <table class="table table-sm table-bordered">
-      <thead>
-        <tr>
-          <th></th>
-          <th v-for="dateLabel in weekDays" :key="dateLabel">{{ dateLabel }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="period in periods" :key="period"  style="height: 100px;">
-          <td>{{ period }}限</td>
+      <table class="table table-sm table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th v-for="dateLabel in weekDays" :key="dateLabel">{{ dateLabel }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="period in periods" :key="period"  style="height: 100px;">
+            <td>{{ period }}限</td>
 
-          <td v-for="dateLabel in weekDays" :key="dateLabel" @click="showEditForm(dateLabel, period)">
-            <template v-if="getClassname(dateLabel, period)">
-              <div v-if="getClassname(dateLabel, period).classname">
-                {{ `授業: ${getClassname(dateLabel, period).classname}` }}
-              </div>
-              <div v-if="getClassname(dateLabel, period).room">
-                {{ `教室: ${getClassname(dateLabel, period).room}` }}
-              </div>
-              <div v-if="getClassname(dateLabel, period).professor">
-                {{ `教授: ${getClassname(dateLabel, period).professor}` }}
-              </div>
-            </template>
+            <td v-for="dateLabel in weekDays" :key="dateLabel" @click="showEditForm(dateLabel, period)" class="hover-cell">
+              <template v-if="getClassname(dateLabel, period)">
+                <div v-if="getClassname(dateLabel, period).classname">
+                  {{ `授業: ${getClassname(dateLabel, period).classname}` }}
+                </div>
+                <div v-if="getClassname(dateLabel, period).room">
+                  {{ `教室: ${getClassname(dateLabel, period).room}` }}
+                </div>
+                <div v-if="getClassname(dateLabel, period).professor">
+                  {{ `教授: ${getClassname(dateLabel, period).professor}` }}
+                </div>
+              </template>
 
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="btn btn-danger m-3" @click="deleteAllTable">全てのデータを削除</button>
-  </div>
-  <!-- {{ ClassInfo }} -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-danger m-3"  data-bs-toggle="modal" data-bs-target="#confirmationModal">全てのデータを削除</button>
+
+      <!-- 確認モーダル -->
+    <div class="modal" tabindex="-1" id="confirmationModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">確認</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            本当にすべてのデータを削除しますか？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">いいえ</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteAllTable">はい</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -115,3 +133,11 @@ export default {
   },
 };
 </script>
+
+ 
+<style scoped>
+ .hover-cell:hover{
+  background-color: #e7e7e7;
+  cursor: pointer;
+ }
+</style>
