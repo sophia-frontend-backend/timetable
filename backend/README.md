@@ -21,3 +21,9 @@ source venv/bin/activate
 python3 create.py
 ```
 
+## Docker環境が利用可能な場合
+
+```sh
+docker build -t my-flask-app .
+docker run -p 8080:8080 my-flask-app
+```
