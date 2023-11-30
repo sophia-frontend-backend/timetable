@@ -1,3 +1,5 @@
+<br>
+
 # バックエンドの起動
 
 ## 仮想環境
@@ -9,16 +11,6 @@ source venv/bin/activate
 python3 -m pip install --upgrade pip
 pip3 install -r requirements.txt
 python3 api.py
-```
-
-## データ作成
-
-別のターミナルを開く
-
-```sh
-cd ./backend
-source venv/bin/activate
-python3 create.py
 ```
 
 ## Docker環境が利用可能な場合

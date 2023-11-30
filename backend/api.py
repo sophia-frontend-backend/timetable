@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 import json
 from app import app, db
 from models import Timetable
+from init_create import create_timetable
 
 class AllTimetables(Resource):
     def get(self):
@@ -143,5 +144,6 @@ if __name__ == '__main__':
 
     with app.app_context():
         db.create_all()
-    
+        create_timetable()
+
     app.run(debug=True, host='0.0.0.0', port=8080)
