@@ -1,6 +1,10 @@
 <br>
 
-# Frontendの起動
+# フロントエンドの起動
+
+フロントエンドの環境構築についてです。
+
+<br>
 
 ## node.jsがinstallされている場合
 
@@ -9,6 +13,8 @@ cd frontend
 npm install
 npm run dev
 ```
+
+<br>
 
 ## Dockerの環境がある場合
 
