@@ -1,8 +1,7 @@
 import requests
 import json
-import os
 
-URL = "http://127.0.0.1:5000"
+URL = "http://127.0.0.1:8080"
 DATE_LIST = ["月曜日", "火曜日", "水曜日", "木曜日", "金曜日"]
 PERIOD_LIST = list(range(1, 7))
 # TIMETABLE_URL = os.path.join(URL, f'timetable/{DATE}/{PERIOD}')
