@@ -2,9 +2,11 @@
 
 # バックエンドの起動
 
-## 仮想環境
+バックエンドの環境構築についてです。
 
-### Unix系
+<br>
+
+## ローカルで環境構築する場合
 
 ```sh
 cd ./backend
@@ -15,30 +17,8 @@ pip3 install -r requirements.txt
 python3 api.py
 ```
 
-<<<<<<< HEAD
-### Windows
+<br>
 
-```sh
-cd ./backend
-python -m venv venv
-./venv/Scripts/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python api.py
-```
-
-## データ作成
-
-別のターミナルを開く
-
-```sh
-cd ./backend
-source venv/bin/activate
-python3 create.py
-```
-
-=======
->>>>>>> dd50de889ae9816de187ffc8f836772ebb79bd86
 ## Docker環境が利用可能な場合
 
 ```sh
