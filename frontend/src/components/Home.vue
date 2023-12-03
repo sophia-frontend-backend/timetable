@@ -1,25 +1,27 @@
 <template>
-  <div>
+
+  <div class="table-container">
       <table class="table table-sm table-bordered">
         <thead>
           <tr>
             <th></th>
-            <th v-for="dateLabel in weekDays" :key="dateLabel">{{ dateLabel }}</th>
+            <th v-for="dateLabel in weekDays" :key="dateLabel" class="cell-days">{{ dateLabel }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="period in periods" :key="period"  style="height: 100px;">
-            <td>{{ period }}限</td>
+          <tr v-for="period in periods" :key="period"  style="height: 120px;">
+            <td class="cell-time">{{ period }}限
+            </td>          
 
             <td v-for="dateLabel in weekDays" :key="dateLabel" @click="showEditForm(dateLabel, period)" class="hover-cell">
               <template v-if="getClassname(dateLabel, period)">
-                <div v-if="getClassname(dateLabel, period).classname">
-                  {{ `授業: ${getClassname(dateLabel, period).classname}` }}
-                </div>
-                <div v-if="getClassname(dateLabel, period).room">
+                <div class="class-name" v-if="getClassname(dateLabel, period).classname">
+                  {{ ` ${getClassname(dateLabel, period).classname}` }}
+                </div>        
+                <div class="room-name" v-if="getClassname(dateLabel, period).room">
                   {{ `教室: ${getClassname(dateLabel, period).room}` }}
                 </div>
-                <div v-if="getClassname(dateLabel, period).professor">
+                <div class="prof-name" v-if="getClassname(dateLabel, period).professor">
                   {{ `教授: ${getClassname(dateLabel, period).professor}` }}
                 </div>
               </template>
@@ -28,8 +30,10 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="button">
       <button class="btn btn-danger m-3"  data-bs-toggle="modal" data-bs-target="#confirmationModal">全てのデータを削除</button>
-
+    </div>
       <!-- 確認モーダル -->
     <div class="modal" tabindex="-1" id="confirmationModal">
       <div class="modal-dialog modal-dialog-centered">
@@ -48,7 +52,7 @@
         </div>
       </div>
     </div>
-</div>
+
 </template>
 
 <script>
@@ -136,8 +140,54 @@ export default {
 
  
 <style scoped>
+.table-container {
+  margin: 0 auto;
+  width: 800px; /* 適切な横幅に調整 */
+  overflow-x: auto; /* テーブルの横幅がコンテナを超える場合にスクロールバーを表示 */
+  /*background-image: url(../imgs/logo.png);*/
+}
+
  .hover-cell:hover{
   background-color: #e7e7e7;
   cursor: pointer;
  }
+ .hover-cell {
+  padding: 10px; 
+  max-width: 100px;
+  /* white-space: nowrap; テキストを折り返さないようにする */
+  overflow: hidden; /* オーバーフローした部分を隠す */ 
+  text-overflow: ellipsis; /* テキストがオーバーフローした場合に省略記号で表示 */
+}
+.hover-cell:not(:empty) {
+  background-color: rgba(247, 198, 224, 0.35); /* 背景色と透明度を調整*/
+}
+.hover-cell .class-name {
+  font-weight: bold;
+  text-align: center;
+}
+.cell-time{
+  width: 70px;
+  text-align: center;
+  white-space: nowrap;
+}
+.cell-days{
+  width:200px;
+  height:20px;
+  white-space: nowrap;
+}
+.table th {
+  text-align: center;
+}
+.room-name{
+  text-align: center;
+  font-size: 90%;
+}
+.prof-name{
+  text-align: end;
+  font-size: 90%;
+}
+.button{
+  text-align: right;
+}
+
 </style>

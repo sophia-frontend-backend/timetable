@@ -3,17 +3,18 @@
     <h2 class="mb-4">授業情報入力フォーム</h2>
     <form @submit.prevent="submitClassInfo">
       <div class="mb-3">
-        <label for="classname" class="form-label">授業名：</label>
+        <label for="classname" class="form-label">授業名　</label>
+        <span class="badge bg-primary text-light"> 必須</span>
         <input v-model="classname" id="classname" type="text" class="form-control" required>
       </div>
 
       <div class="mb-3">
-        <label for="professor" class="form-label">教授名：</label>
+        <label for="professor" class="form-label">教授名</label>
         <input v-model="professor" id="professor" type="text" class="form-control">
       </div>
 
       <div class="mb-3">
-        <label for="room" class="form-label">教室：</label>
+        <label for="room" class="form-label">教室</label>
         <input v-model="room" id="room" type="text" class="form-control">
       </div>
 

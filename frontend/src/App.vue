@@ -4,6 +4,7 @@
       <ul class="main-nav">
       </ul>
     </nav>
+    <h1><span>時間割</span></h1>
   </header>
 
   <router-view></router-view>
@@ -24,3 +25,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+h1{
+  text-align: center;
+}
+</style>
