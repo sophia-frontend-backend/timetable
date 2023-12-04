@@ -144,7 +144,7 @@ export default {
   margin: 0 auto;
   width: 800px; /* 適切な横幅に調整 */
   overflow-x: auto; /* テーブルの横幅がコンテナを超える場合にスクロールバーを表示 */
-  /*background-image: url(../imgs/logo.png);*/
+  background-image: url(../../timetable/imgs/logo.png);
 }
 
  .hover-cell:hover{
