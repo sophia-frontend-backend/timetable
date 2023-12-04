@@ -9,7 +9,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="period in periods" :key="period"  style="height: 120px;">
+          <tr v-for="period in periods" :key="period" class="height">
             <td class="cell-time">{{ period }}限
             </td>          
 
@@ -17,13 +17,14 @@
               <template v-if="getClassname(dateLabel, period)">
                 <div class="class-name" v-if="getClassname(dateLabel, period).classname">
                   {{ ` ${getClassname(dateLabel, period).classname}` }}
-                </div>        
-                <div class="room-name" v-if="getClassname(dateLabel, period).room">
-                  {{ `教室: ${getClassname(dateLabel, period).room}` }}
-                </div>
+                </div>  
                 <div class="prof-name" v-if="getClassname(dateLabel, period).professor">
-                  {{ `教授: ${getClassname(dateLabel, period).professor}` }}
+                  {{ ` ${getClassname(dateLabel, period).professor}` }}
+                </div>      
+                <div class="room-name" v-if="getClassname(dateLabel, period).room">
+                  {{ ` ${getClassname(dateLabel, period).room}` }}
                 </div>
+                
               </template>
 
             </td>
@@ -144,24 +145,30 @@ export default {
   margin: 0 auto;
   width: 800px; /* 適切な横幅に調整 */
   overflow-x: auto; /* テーブルの横幅がコンテナを超える場合にスクロールバーを表示 */
-  background-image: url(../../timetable/imgs/logo.png);
+  /*background-image: url(../../timetable/imgs/logo.png);*/
 }
-
+.height{
+  height:120px;
+}
  .hover-cell:hover{
   background-color: #e7e7e7;
   cursor: pointer;
  }
  .hover-cell {
-  padding: 10px; 
+  cursor: pointer;
   max-width: 100px;
   /* white-space: nowrap; テキストを折り返さないようにする */
   overflow: hidden; /* オーバーフローした部分を隠す */ 
   text-overflow: ellipsis; /* テキストがオーバーフローした場合に省略記号で表示 */
 }
 .hover-cell:not(:empty) {
-  background-color: rgba(247, 198, 224, 0.35); /* 背景色と透明度を調整*/
+  background-color: rgba(247, 198, 224, 0.6); /* 背景色と透明度を調整*/
+}
+.hover-cell:not(:empty):hover {
+  background-color: rgba(247, 198, 224, 1); /* 背景色と透明度を調整*/
 }
 .hover-cell .class-name {
+  padding: 5px;
   font-weight: bold;
   text-align: center;
 }
@@ -178,13 +185,16 @@ export default {
 .table th {
   text-align: center;
 }
-.room-name{
-  text-align: center;
-  font-size: 90%;
-}
 .prof-name{
+  padding: 5px;
   text-align: end;
   font-size: 90%;
+}
+.room-name{
+  text-align: center;
+  padding-bottom: 0%;
+  font-size: 95%;
+  font-weight: bold;
 }
 .button{
   text-align: right;
